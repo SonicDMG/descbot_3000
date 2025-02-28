@@ -9,27 +9,27 @@ import { toast } from 'sonner';
 import { AnimatePresence, motion } from 'framer-motion';
 
 // Default markdown to show before any docs are loaded
-const DEFAULT_MARKDOWN = `# Welcome to your AI Assistant!
+const DEFAULT_MARKDOWN = `# Welcome to DescBot 3000!
 
-This intelligent assistant is powered by your Python backend.
+This intelligent assistant helps you generate video descriptions effortlessly.
 
 ## Features
 
 * Chat with the AI assistant
-* View markdown documentation
-* Seamless integration with your existing Python code
+* Generate video descriptions automatically
+* Get suggestions and improvements for your content
 
 ## Getting Started
 
 1. Type a message in the chat input
-2. The assistant will respond with helpful information
-3. When the assistant references documentation, it will appear in this panel
+2. The assistant will respond with helpful descriptions
+3. Use the documentation in this panel for guidance
 
 ## Tips
 
 * Clear the chat history using the button above
-* Ask for specific documentation to see it displayed here
-* Explore the capabilities of your assistant!`;
+* Ask for specific description styles or formats
+* Let DescBot do the hard work for you!`;
 
 // Define API URL with fallback
 const API_URL = '/api';
@@ -114,17 +114,24 @@ const ChatbotApp: React.FC = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="flex justify-between items-center mb-6"
+          className="flex flex-col items-center mb-8"
         >
-          <h1 className="text-2xl font-bold text-white">AI Assistant</h1>
-          <Button 
-            variant="ghost" 
-            className="bg-white/5 hover:bg-white/10 text-white rounded-full px-4 py-2 flex items-center gap-2"
-            onClick={clearHistory}
-          >
-            <Trash2 size={16} />
-            <span className="hidden sm:inline">Clear History</span>
-          </Button>
+          <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-purple-pink-gradient mb-2">
+            DescBot 3000
+          </h1>
+          <p className="text-xl text-white/80 italic">
+            Lazily generating video descriptions so you don't have to!
+          </p>
+          <div className="flex justify-end w-full mt-4">
+            <Button 
+              variant="ghost" 
+              className="bg-white/5 hover:bg-white/10 text-white rounded-full px-4 py-2 flex items-center gap-2"
+              onClick={clearHistory}
+            >
+              <Trash2 size={16} />
+              <span className="hidden sm:inline">Clear History</span>
+            </Button>
+          </div>
         </motion.div>
       </AnimatePresence>
       
