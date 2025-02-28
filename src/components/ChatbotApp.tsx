@@ -31,6 +31,9 @@ This intelligent assistant is powered by your Python backend.
 * Ask for specific documentation to see it displayed here
 * Explore the capabilities of your assistant!`;
 
+// Define API URL with fallback
+const API_URL = '/api';
+
 const ChatbotApp: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [markdownContent, setMarkdownContent] = useState(DEFAULT_MARKDOWN);
@@ -46,11 +49,8 @@ const ChatbotApp: React.FC = () => {
     setIsLoading(true);
     
     try {
-      // Replace with your actual Python backend API endpoint
-      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
-      
       // Send the message to your Python backend
-      const response = await fetch(`${apiUrl}/chat`, {
+      const response = await fetch(`${API_URL}/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -100,8 +100,7 @@ const ChatbotApp: React.FC = () => {
     
     // Optional: Notify your backend to clear the session
     try {
-      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
-      fetch(`${apiUrl}/clear-session`, { method: 'POST' })
+      fetch(`${API_URL}/clear-session`, { method: 'POST' })
         .catch(error => console.error("Error clearing session:", error));
     } catch (error) {
       // Silently handle errors for this optional functionality
