@@ -44,7 +44,7 @@ def get_chatbot_response(message: str) -> tuple[str, str]:
         full_response = response_data['outputs'][0]['outputs'][0]['results']['message']['text']
 
         # Split the response at the marker
-        parts = full_response.split("**END AGENT OUTPUT**")
+        parts = full_response.split("**MARKDOWN_START**")
         left_content = parts[0].strip() if parts else "No left content"
         right_content = parts[1].strip() if len(parts) > 1 else "No right content"
         return left_content, right_content
