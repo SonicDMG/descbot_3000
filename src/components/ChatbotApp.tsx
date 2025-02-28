@@ -8,39 +8,35 @@ import { Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { AnimatePresence, motion } from 'framer-motion';
 
-// Mock data for demo purposes
-const SAMPLE_MARKDOWN = `# Master Tool Calling with Ollama! 🤖🔧
+// Default markdown to show before any docs are loaded
+const DEFAULT_MARKDOWN = `# Welcome to your AI Assistant!
 
-Join Developer Relations Engineer David Jones-Gilardi as he walks you through the process of tool calling with agents using Ollama. Discover how to run local models on your machine, ensuring data privacy and control while leveraging AI's power. Perfect for developers looking to enhance their applications with dynamic and interactive agents!
+This intelligent assistant is powered by your Python backend.
 
-## Resources
+## Features
 
-* Ollama: https://ollama.com
+* Chat with the AI assistant
+* View markdown documentation
+* Seamless integration with your existing Python code
 
-## Stay in Touch
+## Getting Started
 
-* Join our Discord Community: /discord
-* Follow us on X: https://twitter.com/ollama_ai
+1. Type a message in the chat input
+2. The assistant will respond with helpful information
+3. When the assistant references documentation, it will appear in this panel
 
-## Chapters
+## Tips
 
-* 00:00:00 | 🌟 Introduction by David Jones-Gilardi
-* 00:00:09 | 💡 Why Use Ollama?
-* 00:00:30 | 🔧 Installing and Running Models
-* 00:00:51 | 📝 Setting Up an Agent
-* 00:01:24 | 🔍 Understanding Tool Calling
-* 00:01:57 | 🚀 Deploying Your Agent
-* 00:02:27 | 🏆 Best Practices for Agents
-* 00:02:48 | 🎬 Conclusion and Happy Coding
-
-#Ollama #ToolCalling #AI #DataPrivacy #DeveloperTutorial`;
+* Clear the chat history using the button above
+* Ask for specific documentation to see it displayed here
+* Explore the capabilities of your assistant!`;
 
 const ChatbotApp: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [markdownContent, setMarkdownContent] = useState(SAMPLE_MARKDOWN);
+  const [markdownContent, setMarkdownContent] = useState(DEFAULT_MARKDOWN);
   const [isLoading, setIsLoading] = useState(false);
   
-  // In a real app, you would connect this to your backend/API
+  // Function to send messages to your Python backend
   const handleSendMessage = async (content: string) => {
     // Add user message immediately
     const userMessage: Message = { role: 'user', content };
@@ -50,25 +46,48 @@ const ChatbotApp: React.FC = () => {
     setIsLoading(true);
     
     try {
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Replace with your actual Python backend API endpoint
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
       
-      // In a real app, you would send the message to your backend
-      // and get a response
+      // Send the message to your Python backend
+      const response = await fetch(`${apiUrl}/chat`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: content,
+          // Add any other data your backend requires (e.g., session ID, user context)
+        }),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      // Add the assistant's response to chat
       const assistantMessage: Message = { 
         role: 'assistant', 
-        content: `I received your message: "${content}"\n\nThis is a demonstration of the chat interface. In a real application, this would connect to your Python backend.` 
+        content: data.response || "Sorry, I couldn't process that request."
       };
       
       setMessages(prev => [...prev, assistantMessage]);
       
-      // Generate new markdown content based on the message
-      if (content.toLowerCase().includes('markdown') || content.toLowerCase().includes('document')) {
-        setMarkdownContent(SAMPLE_MARKDOWN);
+      // If the response includes markdown documentation, display it
+      if (data.markdown) {
+        setMarkdownContent(data.markdown);
       }
     } catch (error) {
-      toast.error("Failed to send message. Please try again.");
       console.error("Error sending message:", error);
+      toast.error("Failed to connect to the backend. Please check your connection.");
+      
+      // Optional: Add an error message to the chat
+      setMessages(prev => [...prev, { 
+        role: 'assistant', 
+        content: "I'm having trouble connecting to the server. Please check your network connection or try again later."
+      }]);
     } finally {
       setIsLoading(false);
     }
@@ -76,7 +95,17 @@ const ChatbotApp: React.FC = () => {
   
   const clearHistory = () => {
     setMessages([]);
+    setMarkdownContent(DEFAULT_MARKDOWN);
     toast.success("Chat history cleared");
+    
+    // Optional: Notify your backend to clear the session
+    try {
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+      fetch(`${apiUrl}/clear-session`, { method: 'POST' })
+        .catch(error => console.error("Error clearing session:", error));
+    } catch (error) {
+      // Silently handle errors for this optional functionality
+    }
   };
   
   return (
