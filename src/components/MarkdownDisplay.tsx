@@ -5,6 +5,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import remarkGfm from 'remark-gfm';
 import { Separator } from './ui/separator';
+import type { Components } from 'react-markdown';
 
 interface MarkdownDisplayProps {
   content: string;
@@ -21,6 +22,36 @@ const MarkdownDisplay: React.FC<MarkdownDisplayProps> = ({ content, title }) => 
   const hashtags = findHashtags(content);
   const uniqueHashtags = [...new Set(hashtags)];
   
+  // Define components for ReactMarkdown
+  const components: Components = {
+    code({ className, children, ...props }) {
+      const match = /language-(\w+)/.exec(className || '');
+      return match ? (
+        <SyntaxHighlighter
+          language={match[1]}
+          style={vscDarkPlus}
+          PreTag="div"
+          {...props}
+        >
+          {String(children).replace(/\n$/, '')}
+        </SyntaxHighlighter>
+      ) : (
+        <code className={className} {...props}>
+          {children}
+        </code>
+      );
+    },
+    h1({ children }) {
+      return <h1>{children}</h1>;
+    },
+    h2({ children }) {
+      return <h2>{children}</h2>;
+    },
+    h3({ children }) {
+      return <h3>{children}</h3>;
+    },
+  };
+  
   return (
     <div className="flex flex-col h-full glass-panel rounded-xl overflow-hidden animate-fade-in">
       <div className="chat-header">
@@ -31,34 +62,7 @@ const MarkdownDisplay: React.FC<MarkdownDisplayProps> = ({ content, title }) => 
         <div className="markdown-content">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
-            components={{
-              code({ node, inline, className, children, ...props }) {
-                const match = /language-(\w+)/.exec(className || '');
-                return !inline && match ? (
-                  <SyntaxHighlighter
-                    language={match[1]}
-                    style={vscDarkPlus}
-                    PreTag="div"
-                    {...props}
-                  >
-                    {String(children).replace(/\n$/, '')}
-                  </SyntaxHighlighter>
-                ) : (
-                  <code className={className} {...props}>
-                    {children}
-                  </code>
-                );
-              },
-              h1({ children }) {
-                return <h1>{children}</h1>;
-              },
-              h2({ children }) {
-                return <h2>{children}</h2>;
-              },
-              h3({ children }) {
-                return <h3>{children}</h3>;
-              },
-            }}
+            components={components}
           >
             {content}
           </ReactMarkdown>
