@@ -21,9 +21,9 @@ This intelligent assistant helps you generate video descriptions effortlessly.
 
 ## Getting Started
 
-1. Type a message in the chat input
-2. The assistant will respond with helpful descriptions
-3. Use the documentation in this panel for guidance
+1. Paste in a YouTube video URL
+2. Tell the bot about errors or updates you'd like to make
+3. Once ready, let DescBot know you'd like to create a document
 
 ## Tips
 
