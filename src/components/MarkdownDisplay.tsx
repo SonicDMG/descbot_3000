@@ -5,6 +5,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import remarkGfm from 'remark-gfm';
 import { Separator } from './ui/separator';
+import type { CodeProps } from 'react-markdown/lib/ast-to-react';
 
 interface MarkdownDisplayProps {
   content: string;
@@ -32,7 +33,7 @@ const MarkdownDisplay: React.FC<MarkdownDisplayProps> = ({ content, title }) => 
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             components={{
-              code({ node, inline, className, children, ...props }) {
+              code({ node, inline, className, children, ...props }: CodeProps) {
                 const match = /language-(\w+)/.exec(className || '');
                 return !inline && match ? (
                   <SyntaxHighlighter
