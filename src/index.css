@@ -1,92 +1,41 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 240 35% 8%;
+    --foreground: 240 10% 96%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 240 30% 12%;
+    --card-foreground: 240 10% 96%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 240 35% 10%;
+    --popover-foreground: 240 10% 96%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 267 100% 76%;
+    --primary-foreground: 240 10% 96%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 327 89% 68%;
+    --secondary-foreground: 240 10% 96%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 240 20% 16%;
+    --muted-foreground: 240 10% 76%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 267 100% 76%;
+    --accent-foreground: 240 10% 96%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 240 10% 96%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 240 20% 20%;
+    --input: 240 20% 16%;
+    --ring: 267 100% 76%;
 
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --radius: 0.75rem;
   }
 }
 
@@ -97,5 +46,108 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Space Grotesk', sans-serif;
+    background-image: radial-gradient(circle at center, rgba(139, 92, 246, 0.15) 0%, rgba(30, 27, 75, 0.2) 25%, rgba(15, 15, 35, 0.4) 50%, rgba(10, 10, 25, 0.9) 100%),
+                      linear-gradient(to bottom right, #080821, #1a0b2e);
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    @apply font-semibold;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-opacity-50 backdrop-blur-md border border-white/10 shadow-lg;
+    background-color: rgba(30, 27, 75, 0.4);
+  }
+  
+  .chat-input {
+    @apply rounded-full border border-white/20 bg-black/20 p-4 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-full backdrop-blur-sm transition-all duration-200;
+  }
+  
+  .chat-header {
+    @apply text-center uppercase tracking-widest font-bold bg-purple-pink-gradient text-white py-4 rounded-t-xl shadow-md;
+  }
+  
+  .send-button {
+    @apply absolute right-2 bg-primary rounded-full p-3 text-white hover:bg-opacity-90 transition-all duration-200 flex items-center justify-center;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .markdown-content {
+    @apply text-white/90 text-sm leading-relaxed;
+  }
+  
+  .markdown-content h1 {
+    @apply text-2xl font-bold text-primary mb-4 mt-6 border-b border-primary/30 pb-2;
+  }
+  
+  .markdown-content h2 {
+    @apply text-xl font-bold text-primary/90 mb-3 mt-5;
+  }
+  
+  .markdown-content h3 {
+    @apply text-lg font-semibold text-primary/80 mb-2 mt-4;
+  }
+  
+  .markdown-content p {
+    @apply mb-4;
+  }
+  
+  .markdown-content a {
+    @apply text-secondary underline hover:text-secondary/80 transition-colors;
+  }
+  
+  .markdown-content ul {
+    @apply list-disc pl-5 mb-4 space-y-1;
+  }
+  
+  .markdown-content ol {
+    @apply list-decimal pl-5 mb-4 space-y-1;
+  }
+  
+  .markdown-content blockquote {
+    @apply border-l-4 border-primary/50 pl-4 italic my-4 text-white/70;
+  }
+  
+  .markdown-content code {
+    @apply bg-black/30 px-1.5 py-0.5 rounded text-secondary font-mono text-sm;
+  }
+  
+  .markdown-content pre {
+    @apply bg-black/40 p-4 rounded-md overflow-x-auto my-4 border border-white/10;
+  }
+  
+  .markdown-content pre code {
+    @apply bg-transparent p-0 text-white/90;
+  }
+  
+  .markdown-content table {
+    @apply min-w-full border border-white/20 my-4;
+  }
+  
+  .markdown-content th {
+    @apply border border-white/20 p-2 bg-black/40 font-semibold;
+  }
+  
+  .markdown-content td {
+    @apply border border-white/20 p-2;
+  }
+  
+  .user-message {
+    @apply bg-chat-user rounded-2xl p-4 max-w-[85%] self-end animate-fade-up shadow-md border border-white/10;
+  }
+  
+  .assistant-message {
+    @apply bg-chat-assistant rounded-2xl p-4 max-w-[85%] self-start animate-fade-up shadow-md border border-white/10;
+  }
+  
+  .hashtag {
+    @apply inline-block bg-black/30 text-chat-highlight px-2 py-1 rounded-full text-xs font-medium mr-2 mb-2 border border-chat-highlight/30;
   }
 }
