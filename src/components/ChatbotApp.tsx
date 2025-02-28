@@ -142,9 +142,9 @@ const ChatbotApp: React.FC = () => {
           <p className="text-xl text-white/80 italic">
             Lazily generating video descriptions so you don't have to!
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full mt-4">
-            <div className="flex items-center gap-2 col-span-2 md:col-span-2">
-              <div className="relative flex-1">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full mt-4">
+            <div className="flex items-center gap-2">
+              <div className="relative w-64">
                 <div className="absolute inset-y-0 left-2 flex items-center pointer-events-none">
                   <Link size={16} className="text-white/50" />
                 </div>
@@ -159,20 +159,12 @@ const ChatbotApp: React.FC = () => {
                   }}
                 />
               </div>
-              <Button 
-                onClick={handleVideoUrlSubmit}
-                variant="secondary" 
-                className="flex items-center gap-2"
-              >
-                <Link size={16} />
-                <span>Create Description</span>
-              </Button>
             </div>
-            <div className="flex justify-between col-span-1 md:col-span-1 gap-3">
+            <div className="flex justify-end col-span-1 gap-3">
               <Button 
                 onClick={handleCreateDocument}
                 variant="ghost" 
-                className="bg-white/5 hover:bg-white/10 text-white flex items-center gap-2 flex-1"
+                className="bg-white/5 hover:bg-white/10 text-white flex items-center gap-2 flex-1 md:flex-none"
               >
                 <FileText size={16} />
                 <span className="hidden sm:inline">Create Document</span>
