@@ -5,7 +5,7 @@ import logging
 import os
 from logging import basicConfig, getLogger
 
-from flask import Flask, render_template, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory
 from dotenv import load_dotenv
 import logfire
 import requests
@@ -71,12 +71,12 @@ def legacy_chat():
 @app.route('/<path:path>')
 def serve(path):
     """Serve the React frontend or static files."""
-    logger.info(f"Serving path: {path}")
-    
+    logger.info("Serving path: %s", path)
+
     # First, try to send the file from the static folder (React build)
     if path != "" and os.path.exists(app.static_folder + '/' + path):
         return send_from_directory(app.static_folder, path)
-    
+
     # For any other routes, send the index.html file (React router will handle it)
     return send_from_directory(app.static_folder, 'index.html')
 
