@@ -144,7 +144,7 @@ const ChatbotApp: React.FC = () => {
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full mt-4">
             <div className="flex items-center gap-2">
-              <div className="relative w-64">
+              <div className="relative w-96">
                 <div className="absolute inset-y-0 left-2 flex items-center pointer-events-none">
                   <Link size={16} className="text-white/50" />
                 </div>
