@@ -5,6 +5,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import remarkGfm from 'remark-gfm';
 import { Separator } from './ui/separator';
+import { ScrollArea } from './ui/scroll-area';
 import type { Components } from 'react-markdown';
 
 interface MarkdownDisplayProps {
@@ -58,16 +59,18 @@ const MarkdownDisplay: React.FC<MarkdownDisplayProps> = ({ content, title }) => 
         {title || "Markdown Output"}
       </div>
       
-      <div className="flex-1 overflow-y-auto p-6">
-        <div className="markdown-content">
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            components={components}
-          >
-            {content}
-          </ReactMarkdown>
+      <ScrollArea className="flex-1">
+        <div className="p-6">
+          <div className="markdown-content">
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={components}
+            >
+              {content}
+            </ReactMarkdown>
+          </div>
         </div>
-      </div>
+      </ScrollArea>
       
       {uniqueHashtags.length > 0 && (
         <>
