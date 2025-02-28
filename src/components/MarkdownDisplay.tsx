@@ -59,7 +59,7 @@ const MarkdownDisplay: React.FC<MarkdownDisplayProps> = ({ content, title }) => 
         {title || "Markdown Output"}
       </div>
       
-      <ScrollArea className="flex-1">
+      <ScrollArea className="flex-1" type="always">
         <div className="p-6">
           <div className="markdown-content">
             <ReactMarkdown
