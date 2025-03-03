@@ -1,12 +1,19 @@
 
 """Client for interacting with the Langflow API to process chat messages."""
 
+import os
 import requests
+from dotenv import load_dotenv
 
-BASE_API_URL = "http://127.0.0.1:7860"
-FLOW_ID = "64cdeeba-6a56-48f1-8cc0-b21e47f91956"
-ENDPOINT = "generate_yt_description"  # You can set a specific endpoint name in the flow settings
+# Load environment variables
+load_dotenv()
 
+# Get configuration from environment variables with fallbacks
+BASE_API_URL = os.getenv("LANGFLOW_API_URL", "http://127.0.0.1:7860")
+FLOW_ID = os.getenv("LANGFLOW_FLOW_ID", "64cdeeba-6a56-48f1-8cc0-b21e47f91956")
+ENDPOINT = os.getenv("LANGFLOW_ENDPOINT", "generate_yt_description")  # You can set a specific endpoint name in the flow settings
+
+# Keep the tweaks configuration as is since it's structured data that would be complex in .env
 TWEAKS = {
     "YouTubeTranscripts-hBTuU": {},
     "ChatInput-HOTGR": {},
