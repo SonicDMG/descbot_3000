@@ -27,16 +27,4 @@ export default defineConfig(({ mode }) => ({
   define: {
     'process.env': {},
   },
-  build: {
-    // Clean the output directory before building
-    emptyOutDir: true,
-    // Improve build process
-    minify: 'terser',
-    sourcemap: false,
-    // Handle crypto polyfill
-    rollupOptions: {
-      // Externalize any problematic dependencies
-      external: ['crypto'],
-    }
-  },
 }));
