@@ -40,7 +40,13 @@ source venv/bin/activate
 # Step 5: Install Python dependencies
 pip install -r requirements.txt
 
-# Step 6: Set up environment variables (if needed)
+# Step 6: Install frontend dependencies
+npm install
+
+# Step 7: Build the frontend
+npm run build
+
+# Step 8: Set up environment variables (if needed)
 # Copy .env.example to .env and fill in required values
 ```
 
@@ -55,18 +61,31 @@ python app.py
 
 The application will be available at http://localhost:5000
 
+## Deployment Steps
+
+When deploying the application:
+
+1. Make sure to build the React frontend first:
+```sh
+npm run build
+```
+
+2. Then run the Flask application:
+```sh
+python app.py
+```
+
+This ensures the Flask server will serve the latest version of the frontend.
+
 ## Frontend Development (Optional)
 
 If you need to modify the React frontend:
 
 ```sh
-# Install frontend dependencies
-npm install
-
 # Start the development server
 npm run dev
 
-# Build the frontend (required before deploying changes)
+# Build the frontend (required before deploying any changes)
 npm run build
 ```
 
@@ -125,3 +144,4 @@ Follow the installation instructions above to set up your local environment.
 For simple visualization, open [Lovable](https://lovable.dev/projects/597f30b2-4c68-4147-8c78-f136f86370f0) and click on Share -> Publish.
 
 For production deployment, you can use platforms like Heroku, PythonAnywhere, or any other service that supports Python Flask applications.
+
