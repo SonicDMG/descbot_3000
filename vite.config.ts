@@ -9,10 +9,8 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
-    // Add security settings for development server
     cors: true,
     hmr: {
-      // Improve security for Hot Module Replacement
       clientPort: 8080
     },
   },
@@ -28,16 +26,17 @@ export default defineConfig(({ mode }) => ({
   },
   define: {
     'process.env': {},
-    // Provide a mock implementation for crypto.getRandomValues
-    'crypto.getRandomValues': 'null',
-    '__vite_crypto_getRandomValues__': 'null',
   },
-  optimizeDeps: {
-    esbuildOptions: {
-      // Node.js global to browser GlobalThis
-      define: {
-        global: 'globalThis',
-      },
-    },
+  build: {
+    // Clean the output directory before building
+    emptyOutDir: true,
+    // Improve build process
+    minify: 'terser',
+    sourcemap: false,
+    // Handle crypto polyfill
+    rollupOptions: {
+      // Externalize any problematic dependencies
+      external: ['crypto'],
+    }
   },
 }));
