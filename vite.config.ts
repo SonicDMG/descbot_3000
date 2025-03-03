@@ -28,5 +28,16 @@ export default defineConfig(({ mode }) => ({
   },
   define: {
     'process.env': {},
+    // Provide a mock implementation for crypto.getRandomValues
+    'crypto.getRandomValues': 'null',
+    '__vite_crypto_getRandomValues__': 'null',
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      // Node.js global to browser GlobalThis
+      define: {
+        global: 'globalThis',
+      },
+    },
   },
 }));
