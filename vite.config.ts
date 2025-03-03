@@ -26,4 +26,15 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  define: {
+    // Fix for crypto.getRandomValues issue
+    'process.env': {},
+    'global': {},
+  },
+  build: {
+    // Enable node polyfills for the build
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
+  }
 }));
