@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
-    // Add the new security settings for development server
+    // Add security settings for development server
     cors: true,
     hmr: {
       // Improve security for Hot Module Replacement
