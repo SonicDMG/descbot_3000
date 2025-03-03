@@ -37,7 +37,18 @@ def get_chatbot_response(message: str) -> tuple[str, str]:
     Returns:
         tuple: (left_panel_content, right_panel_content)
     """
-    api_url = f"{BASE_API_URL}/api/v1/run/{ENDPOINT or FLOW_ID}"
+    # Check if we have the required configuration
+    if not BASE_API_URL:
+        return "Error: LANGFLOW_API_URL is not set in environment variables", ""
+    
+    # Check if at least one of FLOW_ID or ENDPOINT is available
+    if not FLOW_ID and not ENDPOINT:
+        return "Error: Neither LANGFLOW_FLOW_ID nor LANGFLOW_ENDPOINT is set in environment variables", ""
+    
+    # Use ENDPOINT if available, otherwise fall back to FLOW_ID
+    endpoint_to_use = ENDPOINT or FLOW_ID
+    api_url = f"{BASE_API_URL}/api/v1/run/{endpoint_to_use}"
+    
     payload = {
         "input_value": message,
         "output_type": "chat",
