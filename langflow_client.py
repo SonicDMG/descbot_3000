@@ -9,9 +9,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Get configuration from environment variables with fallbacks
-BASE_API_URL = os.getenv("LANGFLOW_API_URL", "http://127.0.0.1:7860")
-FLOW_ID = os.getenv("LANGFLOW_FLOW_ID", "64cdeeba-6a56-48f1-8cc0-b21e47f91956")
-ENDPOINT = os.getenv("LANGFLOW_ENDPOINT", "generate_yt_description")  # You can set a specific endpoint name in the flow settings
+BASE_API_URL = os.getenv("LANGFLOW_API_URL")
+FLOW_ID = os.getenv("LANGFLOW_FLOW_ID")
+ENDPOINT = os.getenv("LANGFLOW_ENDPOINT")
 
 # Keep the tweaks configuration as is since it's structured data that would be complex in .env
 TWEAKS = {
