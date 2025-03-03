@@ -24,17 +24,25 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      // Add crypto polyfill aliases
+      crypto: 'crypto-js',
     },
   },
   define: {
     // Fix for crypto.getRandomValues issue
     'process.env': {},
     'global': {},
+    // Additional crypto polyfill
+    'crypto.getRandomValues': 'require("crypto").randomBytes',
   },
   build: {
     // Enable node polyfills for the build
     commonjsOptions: {
       transformMixedEsModules: true,
+    },
+    rollupOptions: {
+      // External modules that should not be bundled
+      external: ['crypto'],
     },
   }
 }));
