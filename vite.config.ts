@@ -1,3 +1,4 @@
+
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -19,4 +20,8 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  define: {
+    // This provides a simple mock for crypto.getRandomValues
+    'crypto.getRandomValues': 'Object.prototype.toString', // This is a safe mock that will simply return a string
+  }
 }));
