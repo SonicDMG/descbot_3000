@@ -1,4 +1,7 @@
-# Welcome to your Lovable project
+
+# DescBot 3000
+
+Welcome to DescBot 3000 - Lazily generating video descriptions so you don't have to!
 
 ## Project info
 
@@ -27,7 +30,7 @@ Follow these steps:
 git clone <YOUR_GIT_URL>
 
 # Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+cd descbot_3000
 
 # Step 3: Install the necessary dependencies.
 npm i
