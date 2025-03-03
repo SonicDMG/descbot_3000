@@ -25,6 +25,9 @@ basicConfig(handlers=[logfire.LogfireLoggingHandler()])
 logger = getLogger(__name__)
 logger.setLevel(logging.INFO)
 
+# Server Configuration
+PORT = int(os.getenv('PORT', '5000'))
+
 @app.route('/api/chat', methods=['POST'])
 def chat():
     """Process chat messages and return both chat and markdown responses."""
@@ -81,4 +84,4 @@ def serve(path):
     return send_from_directory(app.static_folder, 'index.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=PORT)
